@@ -7,45 +7,77 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
+#include "keys_de_swiss.h"
 
 / {
     macros {
         win_l: win_l {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LEFT_WIN &kp L>;
+            bindings =
+                <&macro_press>,
+                <&kp LEFT_WIN>,
+                <&macro_tap>,
+                <&kp L>,
+                <&macro_release>;
+
             label = "WIN_L";
-        };
-
-        ae: ae {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp DOUBLE_QUOTES &kp A>;
-            label = "AE";
-        };
-
-        oe: oe {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp DOUBLE_QUOTES &kp O>;
-            label = "OE";
-        };
-
-        ue: ue {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp DOUBLE_QUOTES &kp U>;
-            label = "UE";
         };
 
         super_esc: super_esc {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LEFT_WIN &kp ESCAPE>;
+            bindings =
+                <&macro_press>,
+                <&kp LEFT_WIN>,
+                <&macro_tap>,
+                <&kp ESCAPE>,
+                <&macro_release>;
+
             label = "SUPER_ESC";
         };
-    };
 
+        betterCaret: betterCaret {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp DE_CARET &kp DE_CARET>;
+            label = "BETTERCARET";
+        };
+
+        betterGrave: betterGrave {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp DE_GRAVE &kp DE_GRAVE>;
+            label = "BETTERGRAVE";
+        };
+
+        betterTilde: betterTilde {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp DE_TILDE &kp DE_TILDE>;
+            label = "BETTERTILDE";
+        };
+
+        betterLBRAC: betterLBRAC {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+        
+            wait-ms = <30>;
+            tap-ms = <30>;
+        
+            bindings = <
+                &macro_press
+                &kp RALT
+                &macro_tap
+                &kp DE_A_UMLAUT
+                &macro_release
+                &kp RALT
+            >;
+
+            label = "BETTERLBRAC";
+        };
+
+    };
     keymap {
         compatible = "zmk,keymap";
 
@@ -58,10 +90,10 @@
 
             display-name = "Base";
             bindings = <
-&kp TAB    &kp Q  &kp W  &kp E     &kp R  &kp T        &kp Y    &kp U  &kp I            &kp O    &kp P     &kp BSPC
-&kp LCTRL  &kp A  &kp S  &kp D     &kp F  &kp G        &kp H    &kp J  &kp K            &kp L    &kp SEMI  &kp COLON
-&kp LSHFT  &kp Z  &kp X  &kp C     &kp V  &kp B        &kp N    &kp M  &kp COMMA        &kp DOT  &kp FSLH  &kp ESC
-                         &kp LGUI  &mo 1  &kp SPACE    &kp RET  &mo 2  &kp RIGHT_SHIFT
+&kp TAB    &kp Q     &kp W  &kp E     &kp R  &kp T        &kp DE_Z  &kp U  &kp I            &kp O       &kp P         &kp BSPC
+&kp LCTRL  &kp A     &kp S  &kp D     &kp F  &kp G        &kp H     &kp J  &kp K            &kp L       &kp DE_SEMI   &kp DE_COLON
+&kp LSHFT  &kp DE_Y  &kp X  &kp C     &kp V  &kp B        &kp N     &kp M  &kp DE_COMMA     &kp DE_DOT  &kp DE_SLASH  &kp ESC
+                            &kp LGUI  &mo 1  &kp SPACE    &kp RET   &mo 2  &kp RIGHT_SHIFT
             >;
         };
 
@@ -90,10 +122,10 @@
 
             display-name = "Raise";
             bindings = <
-&kp TAB    &kp EXCL  &kp AT  &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS   &kp KP_MULTIPLY  &kp LPAR  &kp RPAR  &kp BSPC
-&kp LCTRL  &ae       &oe     &ue       &trans    &trans       &kp MINUS  &kp EQUAL  &kp LBKT         &kp RBKT  &kp BSLH  &kp GRAVE
-&kp LSHFT  &trans    &trans  &trans    &trans    &trans       &kp UNDER  &kp PLUS   &kp LBRC         &kp RBRC  &kp PIPE  &kp TILDE
-                             &kp LGUI  &trans    &kp SPACE    &kp RET    &trans     &kp RALT
+&kp TAB    &kp DE_EXCL      &kp DE_AT        &kp DE_HASH      &kp DE_DLLR      &kp DE_PRCNT    &betterCaret  &kp DE_AMPS   &kp KP_ASTERISK  &kp DE_LPAR  &kp DE_RPAR       &kp BSPC
+&kp LCTRL  &kp DE_QUESTION  &kp DE_U_UMLAUT  &kp DE_O_UMLAUT  &kp DE_A_UMLAUT  &kp DE_DQT      &kp DE_MINUS  &kp DE_EQUAL  &kp DE_LBKT      &kp DE_RBKT  &kp DE_BACKSLASH  &betterGrave
+&kp LSHFT  &kp KP_PLUS      &kp DE_MINUS     &kp KP_ASTERISK  &kp DE_FSLH      &kp DE_SQT      &kp DE_UNDER  &kp KP_PLUS   &kp RA(APOSTROPHE)   &kp DE_RBRC  &kp DE_PIPE       &betterTilde
+                                             &kp LGUI         &trans           &kp SPACE       &kp RET       &trans        &kp RALT
             >;
         };
 
